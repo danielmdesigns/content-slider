@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+
+	<style>
+
+		body {font: 16px Arial;}
+
+		.next, .prev {cursor: pointer;}
+		::selection {background: transparent;}
+
+		.contentSlider, #three, #four {
+			float: left; 
+			margin-right: 15px;
+			width: 400px;
+		}
+
+		.display {
+			width: 400px;
+			height: 300px;
+			background: #ccc;
+		}
+
+		.one, .two, .three, .four, .five {
+			width: 400px;
+			height: 300px;
+		}
+
+		ul, ul li {
+			list-style: none;
+			padding:0;
+			margin:0;
+		}
+
+		.one {background: blue;}
+		.two {background: red;}
+		.three {background: yellow;}
+		.four {background: purple;}
+		.five {background: pink;}
+
+		.thumbs {
+			margin:0;
+			padding: 5px 0 0 0;
+		}
+
+		.thumbs > * {
+			width: 10px;
+			height: 10px;
+			margin-right: 5px;
+			float: left;
+			background: #ccc;
+			list-style: none;
+			cursor: pointer;
+		}
+
+		.thumbs .active {background: #333;}
+
+		#four .thumbs > *, #four .thumbs .active {background: none;}
+
+		#four .thumbs .active {font-weight: bold;}
+
+		h2 {clear: both; padding-top: 50px;}
+
+		ol {width: 750px;}
+
+		ol li {padding: 5px 0;}
+
+		#one .next, #one .prev, #two > ul li {display: inline;}
+
+	</style>
+
+	<script type="text/javascript" src="content-slider.js"></script>
+</head>
+<body>
+
+
+
+<div class="contentSlider test" id="one">
+	<div class="display">
+		<div class="one">Slide 1<br />Next/Prev &amp; Thumbnails/Pagenation<br />You can have multiple next/prev buttons</div>
+		<div class="two">Slide 2<br />Next/Prev &amp; Thumbnails/Pagenation<br />You can have multiple next/prev buttons</div>
+		<div class="three">Slide 3<br />Next/Prev &amp; Thumbnails/Pagenation<br />You can have multiple next/prev buttons</div>
+	</div>
+
+	<div class="prev">Prev</div>
+	<div class="next">Next</div>
+
+	<div class="prev">Prev 2</div>
+	<div class="next">Next 2</div>
+
+	<ul class="thumbs">
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+
+</div>
+
+<div class="contentSlider" id="two">
+	<div class="display">
+		<div class="one">
+			<p>Slide 1<br />Next/Prev Only</p>
+		</div>
+		<div class="two active">
+			<p>Slide 2</p>
+			<ul>
+				<li>Next/Prev Only</li>
+				<li>Hey Look, a list!</li>
+				<li>I'm the 3<sup>rd</sup> item in this list.</li>
+			</ul>
+		</div>
+		<div class="three">Three</div>
+	</div>
+<ul>
+	<li class="prev">Prev</li>
+	<li class="next">Next</li>
+</ul>
+</div>
+
+<div id="three">
+	<div class="display">
+		<div class="one">Slide 1<br />No Next/Prev or Thumbs/Pagenation</div>
+		<div class="two">Slide 2<br />No Next/Prev or Thumbs/Pagenation</div>
+		<div class="three active">Slide 3<br />No Next/Prev or Thumbs/Pagenation</div>
+	</div>
+</div>
+
+<div id="four">
+	<ul class="display">
+		<li class="one">Slide 1<br />Thumbs Only</li>
+		<li class="two">Slide 2<br />Thumbs Only</li>
+		<li class="three">Slide 3<br />Thumbs Only</li>
+		<li class="four active">Slide 4<br />Thumbs Only (This slide was selected to show first with ".active"</li>
+		<li class="five">Slide 5<br />Thumbs Only</li>
+	</ul>
+	<div class="thumbs">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+	</div>
+</div>
+
+<h2>Steps to Use</h2>
+
+<ol>
+	<li>Associate the content-slider.js with page. This file is in the CMS.</li>
+	<li>Each slider will need a parent container. This will a need class or id to hook into the contentSlider method.</li>
+	<li>Add $("PARENT ID OR CLASS").contentSlider(); somewhere below the content or within a $(document).ready();</li>
+	<li>If you want custom options, pass them in through like this $("PARENT ID OR CLASS").contentSlider({autoTimeout: 3000, pauseOnHover: false}); Defaults are listed below.</li>
+	<li>The area with sliding content will need to be wrapped in an element with the class of ".display", it doesn't matter what type of element, div, ul, whatevs, just needs the class of ".display" and to be block level. The direct children of ".display" will be the slides. Anything can go into the slides. Picture, paragraphs, lists, dancing kittens, whatever you'd like!</li>
+	<li>For Next/Prev buttons, you need child elements to the parent with the class of ".next" and ".prev", it can be any kind of element, span, div, b, i, you name it. Could even be an li inside a ul! All they need is the class of ".next" and ".prev"</li>
+	<li>For Thumbnails/Pagination, you need an element with the class ".thumbs", it's children will be the thumbails/pagination. You can put whatever you want in the thumbnails. Numbers for pagination, thumbnails, words, letters, emoticons, etc. etc.</li>
+	<li>Check out the markup for the examples above.</li>
+</ol>
+
+<p>
+	var defaults = {<br />
+	&emsp;speed: 500,<br />
+	&emsp;auto: true,<br />
+	&emsp;autoTimeout: 5000,<br />
+	&emsp;slideDirection: "left",<br />
+	&emsp;pauseOnHover: true,<br />
+	&emsp;hasThumbs: true<br />
+	}
+
+<script>
+	$(".contentSlider").contentSlider();
+	$("#three").add("#four").contentSlider({autoTimeout: 3000});
+</script>
+
+</body>
+</html>
